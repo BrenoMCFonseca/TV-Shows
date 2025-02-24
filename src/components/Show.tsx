@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import "../styles/styles.css"; // Importe o arquivo CSS
 
 interface ShowData {
   id: number;
@@ -85,105 +86,47 @@ const App: React.FC = () => {
 
   return (
     <>
-    {!selectedShow && ( // Se nenhum seriado foi selecionado, exibe a lista
-      <div style={{ textAlign: "center", padding: "20px" }}>
-        <h1>Escolha um seriado</h1>
-        <div>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-              gap: "20px",
-              justifyContent: "center",
-              alignItems: "center",
-              padding: "10px"
-            }}
-          >
+      {!selectedShow && ( // Se nenhum seriado foi selecionado, exibe a lista
+        <div className="container">
+          <h1>Escolha um seriado</h1>
+          <div className="show-list">
             {shows?.map((show) => (
               <div
                 key={show.id}
+                className="show-card"
                 onClick={() => {
                   const selectedShowData = shows.find((s) => s.id === show.id);
                   if (selectedShowData) {
                     setSelectedShow(show.id);
-                    setSelectedShowData(show);  // Salva os dados do seriado escolhido
+                    setSelectedShowData(selectedShowData);
                     setSelectedSeason(null);
                     fetchSeasons(show.id);
                     setEpisodes([]);
                   }
                 }}
-                style={{
-                  cursor: "pointer", marginBottom: "10px",
-                  border: "1px solid #ccc",
-                  borderRadius: "8px",
-                  padding: "10px",
-                  textAlign: "center",
-                  transition: "transform 0.2s",
-                  backgroundColor: "#f9f9f9"
-                }}
-
-                onMouseOver={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
-                onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
               >
-
-                <h2 style={{ fontSize: "18px" }}>{show.name}</h2>
+                <h2>{show.name}</h2>
                 {show.image && (
-                  <img src={show.image.medium}
-                    alt={show.name}
-                    style={{
-                      width: "100%",
-                      maxWidth: "200px",
-                      height: "auto",
-                      borderRadius: "8px"
-                    }} />
+                  <img src={show.image.medium} alt={show.name} />
                 )}
               </div>
             ))}
           </div>
         </div>
-      </div>
-    )}
-    
-        {selectedShow && (
-          <div style={{ textAlign: "center", padding: "20px" }}>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              textAlign: "center",
-              padding: "20px",
-              maxWidth: "400px",
-              margin: "0 auto",
-              backgroundColor: "#f9f9f9",
-              borderRadius: "8px",
-              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-            }}
-          >
-            {/* Exibe a imagem do seriado selecionado */}
-             {selectedShowData && selectedShowData.image && (
-               <img 
-                 src={selectedShowData.image.medium} 
-                 alt={selectedShowData.name} 
-                 style={{ width: "200px", borderRadius: "8px", marginBottom: "20px" }}
-               />
-        )}
-
-              <h2 style={{ fontSize: "20px", marginBottom: "10px" }}>Escolha uma temporada</h2>
-           
-              <select onChange={(e) => setSelectedSeason(Number(e.target.value))}
-                style={{
-                  width: "100%",
-                  padding: "10px",
-                  fontSize: "16px",
-                  borderRadius: "8px",
-                  border: "1px solid #ccc",
-                  cursor: "pointer",
-                  backgroundColor: "#fff",
-                  transition: "0.3s",
-                }}
-              onMouseOver={(e) => (e.currentTarget.style.borderColor = "#007bff")}
-              onMouseOut={(e) => (e.currentTarget.style.borderColor = "#ccc")}
+      )}
+  
+      {selectedShow && (
+        <div className="container">
+          <div className="season-container">
+            {selectedShowData && selectedShowData.image && (
+              <img
+                src={selectedShowData.image.medium}
+                alt={selectedShowData.name}
+              />
+            )}
+            <h2>Escolha uma temporada</h2>
+            <select
+              onChange={(e) => setSelectedSeason(Number(e.target.value))}
             >
               <option value="">Selecione</option>
               {seasons.map((season) => (
@@ -193,57 +136,26 @@ const App: React.FC = () => {
               ))}
             </select>
           </div>
+        </div>
+      )}
+  
+      {selectedSeason && (
+        <div className="episode-container">
+          <h2>{episodes.length} - Episódios</h2>
+          <div>
+            {episodes.map((episode) => (
+              <div key={episode.id} className="episode-card">
+                <h3>{episode.name}</h3>
+                {episode.image && (
+                  <img src={episode.image.medium} alt={episode.name} />
+                )}
+                <p dangerouslySetInnerHTML={{ __html: episode.summary }} />
+              </div>
+            ))}
           </div>
-        )}
-        {selectedSeason && (
-          <div style={{
-            maxWidth: "800px",
-            margin: "auto",
-            padding: "20px",
-            textAlign: "center"
-          }}>
-            <h2 style={{ fontSize: "24px", marginBottom: "20px" }}>
-              {episodes.length} - Episódios</h2>
-
-            <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-              {episodes.map((episode) => (
-                <div key={episode.id}
-                  style={{
-                    maxWidth: "600px",
-                    margin: "auto",
-                    padding: "15px",
-                    borderRadius: "8px",
-                    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-                    backgroundColor: "#fff",
-                    textAlign: "left"
-                  }}
-                >
-                  <h3 style={{ fontSize: "20px", marginBottom: "10px" }}>{episode.name}</h3>
-
-                  {episode.image && (
-                    <img
-                      src={episode.image.medium}
-                      alt={episode.name}
-
-                      style={{
-                        width: "100%",
-                        height: "auto",
-                        borderRadius: "8px",
-                        display: "block",
-                        marginBottom: "10px"
-                      }} />
-                  )}
-
-                  <p dangerouslySetInnerHTML={{ __html: episode.summary }}
-                    style={{ fontSize: "16px", lineHeight: "1.5" }} />
-                </div>
-
-              ))}
-            </div>
-          </div>
-        )}
-
-      </>
+        </div>
+      )}
+    </>
   );
 };
 

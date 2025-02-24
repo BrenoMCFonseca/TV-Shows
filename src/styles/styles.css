@@ -1,0 +1,124 @@
+/* styles.css */
+
+/* Estilos gerais */
+.container {
+  text-align: center;
+  padding: 20px;
+}
+
+/* Estilos para a lista de seriados */
+.show-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.show-card {
+  cursor: pointer;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+  transition: transform 0.2s;
+  background-color: #f9f9f9;
+}
+
+.show-card:hover {
+  transform: scale(1.05);
+}
+
+.show-card h2 {
+  font-size: 18px;
+}
+
+.show-card img {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* Estilos para a seção de temporadas */
+.season-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  max-width: 400px;
+  margin: 0 auto;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.season-container img {
+  width: 200px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.season-container h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.season-container select {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  background-color: #fff;
+  transition: border-color 0.3s;
+}
+
+.season-container select:hover {
+  border-color: #007bff;
+}
+
+/* Estilos para a lista de episódios */
+.episode-container {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.episode-container h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.episode-card {
+  max-width: 600px;
+  margin: auto;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  text-align: left;
+}
+
+.episode-card h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.episode-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.episode-card p {
+  font-size: 16px;
+  line-height: 1.5;
+}
